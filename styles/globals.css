@@ -4,9 +4,9 @@
 
 
 button, .btn {
-  @apply rounded-md  ring-slate-800 focus:ring-[3px] transition-all ring-offset-2;
+  @apply rounded-md  ring-slate-800 focus:ring-[3px] transition-all ring-offset-2 outline-none;
 }
 
 .icon-btn {
-  @apply p-3 text-xl bg-slate-100;
+  @apply p-3 text-xl bg-slate-100 text-slate-800;
 }

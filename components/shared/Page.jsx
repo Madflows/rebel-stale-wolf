@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { Fragment } from 'react';
+import ScrollToTop from '../ScrollToTop';
 
 const Page = ({ children, title = 'Stale Wolf' }) => {
   return (
@@ -12,6 +13,7 @@ const Page = ({ children, title = 'Stale Wolf' }) => {
           {children}
         </div>
       </main>
+      <ScrollToTop />
     </Fragment>
   );
 };

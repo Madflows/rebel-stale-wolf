@@ -13,7 +13,9 @@ function Song({ song }) {
     return axios.post(
       'http://localhost:5000/api/request',
       {
-        name: `${song.name} - ${song.artists[0].name}`,
+        name: `${song.name}`,
+        artist: `${song.artists[0].name}`,
+        year: `${getYearFromDate(song.album.date)}`,
         cover: `${song.album.cover[0].url}`,
       },
       {
@@ -46,9 +48,8 @@ function Song({ song }) {
   useEffect(() => {
     if (isError) {
       console.log(error);
-      toast.error('Error requesting your song');
+      toast.error("Bad Request");
       setAddRequest(false);
-
     }
   }, [isError, error]);
 
@@ -72,7 +73,7 @@ function Song({ song }) {
       </div>
       <button
         onClick={() => setAddRequest(true)}
-        className='py-2 px-3 text-sm font-bold rounded-md w-full md:w-fit bg-slate-800 text-white'
+        className='py-2 px-3 text-sm font-bold h-[40px] min-w-[150px] rounded-md w-full sm:w-fit bg-slate-800 text-white'
       >
         {!loading ? 'Add to request' : <Spinner />}
       </button>

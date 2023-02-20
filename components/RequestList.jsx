@@ -1,14 +1,17 @@
-import { fetchSongs } from '@/utils/functions';
+import { getAllRequests } from '@/utils/functions';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
-import Song from './Song';
+import Request from './Request';
 
-function SongList() {
+function RequestList() {
   const [maxIndex, setMaxIndex] = useState(10);
-  const { data, isLoading, error, isError } = useQuery(['songs'], fetchSongs);
+  const { data, isLoading, error, isError } = useQuery(['requests'], getAllRequests, {
+    refetchInterval: 1000,
+    refetchIntervalInBackground: true
+  });
   if (isLoading) {
-    return <p>Getting songs</p>;
+    return <p>Getting Requests</p>;
   }
   if (isError) {
     console.log(error);
@@ -19,13 +22,15 @@ function SongList() {
       <div className='w-full p-4 grid grid-cols-1 gap-4'>
         {data.map((song, index) => {
           if (index > maxIndex) return;
-          return <Song key={song.id} song={song} />;
+          return <Request key={song.id} song={song} />;
         })}
       </div>
       <div className='p-4'>
         <button
           onClick={() => setMaxIndex(maxIndex + 10)}
-          className={`w-full py-2 px-3 bg-slate-800 text-white ${maxIndex === 200 && 'hidden'}`}
+          className={`w-full py-2 px-3 bg-slate-800 text-white ${
+            maxIndex >= data.length && 'hidden'
+          }`}
         >
           Load More
         </button>
@@ -34,4 +39,4 @@ function SongList() {
   );
 }
 
-export default SongList;
+export default RequestList;

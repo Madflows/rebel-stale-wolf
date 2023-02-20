@@ -12,6 +12,12 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['GT Walsheim', 'sans-serif']
+      },
+      zIndex: {
+        base: 1,
+        md: 2,
+        lg: 3,
+        xl: 4
       }
     },
   },
