@@ -11,17 +11,19 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['GT Walsheim', 'sans-serif']
+        sans: ['var(--font-walsheim)', 'sans-serif'],
+      },
+      colors: {
+        black: '#000000',
+        semiblack: '#060809',
       },
       zIndex: {
         base: 1,
         md: 2,
         lg: 3,
-        xl: 4
-      }
+        xl: 4,
+      },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar-hide'),
-  ],
+  plugins: [require('tailwind-scrollbar-hide')],
 };

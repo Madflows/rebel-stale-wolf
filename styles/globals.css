@@ -3,10 +3,32 @@
 @tailwind utilities;
 
 
+
 button, .btn {
-  @apply rounded-md  ring-slate-800 focus:ring-[3px] transition-all ring-offset-2 outline-none;
+  @apply rounded-[8px] text-[1em] py-[0.6em] px-[1.2em] ring-slate-800 focus:ring-[2px] transition-all focus:ring-offset-2 outline-none;
 }
 
 .icon-btn {
-  @apply p-3 text-xl bg-slate-100 text-slate-800;
+  @apply p-[0.6em] text-lg bg-slate-100 text-slate-800;
+}
+.icon-btn-dark {
+  @apply p-[0.6em] text-xl text-slate-100 bg-gray-900;
+}
+
+.hero-btn {
+  @apply w-full max-w-xs py-3 px-6 rounded-sm bg-semiblack text-white border-2 border-semiblack;
+}
+.hero-btn-ghost {
+  @apply w-full max-w-xs py-3 px-6 rounded-sm bg-transparent text-semiblack hover:bg-semiblack hover:text-white transition-all border-2 border-semiblack;
+}
+
+.badge {
+  @apply bg-green-100 border border-dashed border-green-600 p-1 rounded-md;
+}
+
+.badge-warning {
+  @apply bg-yellow-100 border border-dashed border-yellow-600 p-1 rounded-md;
+}
+.badge-danger {
+  @apply bg-red-100 border border-dashed border-red-600 p-1 rounded-md;
 }

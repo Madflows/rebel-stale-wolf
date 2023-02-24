@@ -7,51 +7,35 @@ import Spinner from './shared/Spinner';
 import axios from 'axios';
 
 function Song({ song }) {
-  const [addRequest, setAddRequest] = useState(false);
-
-  function makeARequest() {
-    return axios.post(
-      'http://localhost:5000/api/request',
-      {
-        name: `${song.name}`,
-        artist: `${song.artists[0].name}`,
-        year: `${getYearFromDate(song.album.date)}`,
-        cover: `${song.album.cover[0].url}`,
-      },
-      {
-        withCredentials: true,
-      }
-    );
-  }
   const [loading, setLoading] = useState(false);
-  const { isLoading, isError, error, isSuccess } = useQuery(
-    ['addSong', song],
-    makeARequest,
-    {
-      refetchOnWindowFocus: false,
-      enabled: addRequest,
-    }
-  );
-  useEffect(() => {
-    if (isLoading && addRequest) {
-      setLoading(true);
-    } else {
-      setLoading(false);
-    }
-  }, [isLoading, addRequest]);
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('Song add to request');
-      setAddRequest(false);
-    }
-  }, [isSuccess]);
-  useEffect(() => {
-    if (isError) {
-      console.log(error);
-      toast.error("Bad Request");
-      setAddRequest(false);
-    }
-  }, [isError, error]);
+  function makeARequest(song) {
+    setLoading(true);
+    axios
+      .post(
+        `http://localhost:5000/api/request`,
+        {
+          name: `${song.name}`,
+          artist: `${song.artists[0].name}`,
+          year: `${getYearFromDate(song.album.date)}`,
+          cover: `${song.album.cover[0].url}`,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => res.data)
+      .then(() => {
+        toast.success(`${song.name} requested`);
+        setLoading(false);
+        
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error(err.response.data.message);
+        setLoading(false);
+      
+      });
+  }
 
   return (
     <div className='rounded-md w-full bg-gray-100 p-4 flex flex-wrap items-center justify-between gap-4'>
@@ -72,10 +56,10 @@ function Song({ song }) {
         </div>
       </div>
       <button
-        onClick={() => setAddRequest(true)}
+        onClick={() => makeARequest(song)}
         className='py-2 px-3 text-sm font-bold h-[40px] min-w-[150px] rounded-md w-full sm:w-fit bg-slate-800 text-white'
       >
-        {!loading ? 'Add to request' : <Spinner />}
+        {loading ? <Spinner /> : 'Add to request'}
       </button>
     </div>
   );

@@ -2,13 +2,19 @@ import { fetchSongs } from '@/utils/functions';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
+import Spinner from './shared/Spinner';
 import Song from './Song';
 
 function SongList() {
   const [maxIndex, setMaxIndex] = useState(10);
   const { data, isLoading, error, isError } = useQuery(['songs'], fetchSongs);
   if (isLoading) {
-    return <p>Getting songs</p>;
+    return (
+      <div className='min-h-[300px] flex items-center justify-center gap-2 flex-col'>
+        <Spinner />
+        <p className='font-semibold'>Getting songs</p>
+      </div>
+    );
   }
   if (isError) {
     console.log(error);

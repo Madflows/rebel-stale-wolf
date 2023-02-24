@@ -1,13 +1,16 @@
-import React, { Fragment } from 'react'
-import Navbar from '../Navbar'
+import { useRouter } from 'next/router';
+import React, { Fragment } from 'react';
+import Navbar from '../Navbar';
 
-function Layout({children}) {
+function Layout({ children }) {
+  const { pathname } = useRouter();
+
   return (
     <Fragment>
-        <Navbar />
-        <main>{children}</main>
+      <Navbar />
+      <div  >{children}</div>
     </Fragment>
-  )
+  );
 }
 
-export default Layout
+export default Layout;
