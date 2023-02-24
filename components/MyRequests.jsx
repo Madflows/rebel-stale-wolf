@@ -49,8 +49,9 @@ function RequestCard({ item }) {
         <p>
           <b>{item.name}</b> by <b>{item.artist}</b>
         </p>
-        <div className='flex items-center text-[9px]'>
-          {item.isAvailable && <p className='badge'>Available</p>}
+        <div className='flex items-center text-[9px] gap-3'>
+          {(item.isAvailable && !item.isPlayed) && <p className='badge'>Available</p>}
+          {!item.isAvailable && <p className='badge-warning'>Not available</p>}
           {item.isPlayed && <p className='badge'>Played</p>}
         </div>
         <p>Requested {getRelativeTime(item.requestedOn)}</p>

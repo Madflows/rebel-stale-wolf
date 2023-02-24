@@ -12,7 +12,7 @@ function SongList() {
     return (
       <div className='min-h-[300px] flex items-center justify-center gap-2 flex-col'>
         <Spinner />
-        <p className='font-semibold'>Getting songs</p>
+        <p className='font-medium text-xs'>Getting songs</p>
       </div>
     );
   }

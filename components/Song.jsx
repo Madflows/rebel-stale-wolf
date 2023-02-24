@@ -12,7 +12,7 @@ function Song({ song }) {
     setLoading(true);
     axios
       .post(
-        `https://stalewolf.onrender.com/api/request`,
+        `http://localhost:5000/api/request`,
         {
           name: `${song.name}`,
           artist: `${song.artists[0].name}`,
@@ -46,7 +46,7 @@ function Song({ song }) {
           src={song.album.cover[0].url}
         />
         <div className='flex flex-col gap-2 items-start'>
-          <h2 className='font-bold'>{song.name}</h2>
+          <h2 className='font-semibold text-slate-900 text-lg'>{song.name}</h2>
           <p className='text-xs font-medium text-slate-600'>
             {song.artists[0].name}
           </p>

@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -20,7 +21,7 @@ function Navbar() {
         </Link>
         <div className='flex items-center gap-4'>
           <button
-            onClick={() => setShowMyRequests(!showMyRequests)}
+            onClick={() => setShowMyRequests(showMyRequests ? false : true)}
             className='flex items-center gap-2'
           >
             <FaStar />
@@ -36,13 +37,28 @@ function Navbar() {
             </button>
           </div>
         </div>
-        {showMyRequests && (
-          <ClickAwayListener onClickAway={() => setShowMyRequests(false)}>
-            <div className='absolute scrollbar-hide top-[100%] max-h-[80vh] overflow-y-scroll max-md:left-[50%] max-md:translate-x-[-50%] md:right-0 py-6 px-2 rounded-xl shadow-lg w-full max-w-sm bg-white'>
-              <MyRequests />
-            </div>
-          </ClickAwayListener>
-        )}
+
+        <AnimatePresence
+        
+        >
+          {showMyRequests && (
+            <ClickAwayListener onClickAway={() => setShowMyRequests(false)}>
+              <motion.div
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              className='absolute scrollbar-hide lg:border border-slate-200 top-[100%] max-h-[80vh] overflow-y-scroll max-md:left-[50%] max-md:translate-x-[-50%] md:right-0 py-6 px-2 rounded-xl shadow-md w-full max-w-sm bg-white'>
+                <MyRequests />
+              </motion.div>
+            </ClickAwayListener>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );

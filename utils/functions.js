@@ -1,12 +1,12 @@
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
-const api_url = 'https://stalewolf.onrender.com';
-// const api_url = 'http://localhost:5000';
+// const api_url = 'https://stalewolf.onrender.com';
+const api_url = 'http://localhost:5000';
 
+// Axios functions
 export function fetchSongs() {
-  return axios
-    .get(`${api_url}/api/music`)
-    .then((res) => res.data);
+  return axios.get(`${api_url}/api/music`).then((res) => res.data);
 }
 export function makeARequest(song) {
   return axios.post(`${api_url}/api/request`, {
@@ -15,9 +15,7 @@ export function makeARequest(song) {
   });
 }
 export function getAllRequests() {
-  return axios
-    .get(`${api_url}/api/request`)
-    .then((res) => res.data);
+  return axios.get(`${api_url}/api/request`).then((res) => res.data);
 }
 
 export function getMyRequests() {
@@ -27,6 +25,37 @@ export function getMyRequests() {
     })
     .then((res) => res.data);
 }
+
+export function markAsPlayed(id) {
+  return axios
+    .put(`${api_url}/api/request/${id}`, {
+      isPlayed: true,
+    })
+    .then((res) => res.data)
+    .then(() => {
+      toast.success('Marked as played');
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error(err.response.data.message);
+    });
+}
+export function markAsUnavailable(id) {
+  return axios
+    .put(`${api_url}/api/request/${id}`, {
+      isAvailable: false,
+    })
+    .then((res) => res.data)
+    .then(() => {
+      toast.success('Marked as unavailable');
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error(err.response.data.message);
+    });
+}
+
+// Helper Functions
 
 export function getYearFromDate(date) {
   return date.split('-')[0];
