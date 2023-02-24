@@ -12,7 +12,7 @@ function Song({ song }) {
     setLoading(true);
     axios
       .post(
-        `http://localhost:5000/api/request`,
+        `https://stalewolf.onrender.com/api/request`,
         {
           name: `${song.name}`,
           artist: `${song.artists[0].name}`,
@@ -27,13 +27,11 @@ function Song({ song }) {
       .then(() => {
         toast.success(`${song.name} requested`);
         setLoading(false);
-        
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         toast.error(err.response.data.message);
         setLoading(false);
-      
       });
   }
 
