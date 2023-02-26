@@ -22,9 +22,11 @@ function Navbar() {
           <h2 className='text-lg font-bold'>JamBox</h2>
         </Link>
         <div className='flex items-center gap-4'>
-          <Link href='/search' className='icon-btn'>
-            <FaSearch />
-          </Link>
+          {pathname == '/request' && (
+            <Link href='/search' className='icon-btn rounded-[8px] text-sm text-slate-900'>
+              <FaSearch />
+            </Link>
+          )}
           <button
             onClick={() => setShowMyRequests(showMyRequests ? false : true)}
             className='flex items-center gap-2 bg-gray-100'

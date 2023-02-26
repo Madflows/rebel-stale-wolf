@@ -10,12 +10,11 @@ function SearchPage() {
 
   useEffect(() => {
     let filtered = songs.filter((song) => {
-        let tName = song.name;
-        tName = tName.toLowerCase();
-        return tName.includes(songName.toLowerCase());
+      let tName = song.name;
+      tName = tName.toLowerCase();
+      return tName.includes(songName.toLowerCase());
     });
     setSearchResult(filtered);
-    console.log(searchResult);
   }, [songs, setSearchResult, songName]);
   return (
     <Page title='Search - Jambox'>
@@ -28,11 +27,12 @@ function SearchPage() {
           onChange={(e) => setSongName(e.target.value)}
         />
         <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
-            {
-                searchResult.map((item, index) => (
-                    <Song song={item} key={index} />
-                ))
-            }
+          {songName !== '' &&
+          searchResult.length > 1 ? (
+            searchResult.map((item, index) => <Song song={item} key={index} />)
+          ) : songName !== '' && searchResult.length == 0 ? (
+            <div>We have nothing like that here</div>
+          ) : null}
         </div>
       </div>
     </Page>
