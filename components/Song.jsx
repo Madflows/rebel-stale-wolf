@@ -30,7 +30,11 @@ function Song({ song }) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.response.data.message);
+        if (err.response.data.message) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error('Request timeout!');
+        }
         setLoading(false);
       });
   }
@@ -41,7 +45,7 @@ function Song({ song }) {
         <Image
           width={100}
           height={100}
-          loading={"lazy"}
+          loading={'lazy'}
           className='rounded-md'
           alt={`${song.name}`}
           src={song.album.cover[0].url}
