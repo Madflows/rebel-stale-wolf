@@ -17,6 +17,7 @@ function Request({song}) {
           />
           <div className='flex flex-col gap-2 items-start'>
             <h2 className='font-bold'>{song.name}</h2>
+            <p>{song.artist}</p>
           </div>
         </div>
 
