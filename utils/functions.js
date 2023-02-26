@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useState, useEffect } from 'react';
 
 const api_url = 'https://stalewolf.onrender.com';
 // const api_url = 'http://localhost:5000';
 
 // Axios functions
-export function fetchSongs() {
+export function fetchSongs() { 
   return axios.get(`${api_url}/api/music`).then((res) => res.data);
 }
 export function makeARequest(song) {
@@ -77,3 +78,37 @@ export function getRelativeTime(timestamp) {
     return `${daysAgo} day${daysAgo === 1 ? '' : 's'} ago`;
   }
 }
+
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+
+    const listener = () => {
+      setMatches(media.matches);
+    };
+
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', listener);
+    } else {
+      media.addListener(listener);
+    }
+
+    return () => {
+      if (typeof media.removeEventListener === 'function') {
+        media.removeEventListener('change', listener);
+      } else {
+        media.removeListener(listenerList);
+      }
+    };
+  }, [matches, query]);
+
+  return matches;
+}
+
+export const useIsSmall = () => useMediaQuery('(min-width: 480px)');
+export const useIsMedium = () => useMediaQuery('(min-width: 768px)');

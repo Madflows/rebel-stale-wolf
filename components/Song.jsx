@@ -41,6 +41,7 @@ function Song({ song }) {
         <Image
           width={100}
           height={100}
+          loading={"lazy"}
           className='rounded-md'
           alt={`${song.name}`}
           src={song.album.cover[0].url}

@@ -19,6 +19,10 @@ const Hero = () => {
             goodbye to the hassle of authentication and logging in. Our
             user-friendly interface lets you request your favorite music with
             ease.
+            <br />
+            <b>
+              NB: We are only limited to the top 200 songs on the chart for now
+            </b>
           </p>
           <div className='flex gap-2 max-sm:flex-wrap items-center max-md:justify-center w-full'>
             <Link
@@ -35,23 +39,26 @@ const Hero = () => {
             </Link>
           </div>
         </div>
-        <div className='p-4 flex items-center justify-center'>
-          <div className='w-[400px] h-[400px] rounded-lg overflow-hidden'>
-            {/* <Image
-              width={400}
-              height={400}
-              className='absolute inset-0 h-full w-full'
-              src='/assets/floating-gradient.jpg'
-              alt='grain'
-            /> */}
-            <h3
-              className='relative bg-clip-text text-transparent grid grid-cols-3 text-[7em] w-full text-center leading-none font-black gap-2'
-              style={{
-                backgroundImage: 'url(/assets/floating-gradient.jpg)',
-              }}
-            >
+        <div className='p-4 flex items-center justify-center max-md:hidden'>
+          <div className='w-[400px] h-[400px] rounded-lg'>
+            <h3 className='relative text-black grid grid-cols-3 text-[7em] w-full text-center leading-none font-black gap-2'>
               {['J', 'A', 'M', 'B', 'O', 'X'].map((item, index) => (
-                <motion.span drag key={item + index}>{item}</motion.span>
+                <motion.span
+                  drag
+                  dragConstraints={{
+                    top: -15,
+                    right: 15,
+                    bottom: 15,
+                    left: -15,
+                  }}
+                  className="cursor-grab"
+                  dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+                  dragElastic={0.5}
+                  whileTap={{ cursor: 'grabbing' }}
+                  key={item + index}
+                >
+                  {item}
+                </motion.span>
               ))}
             </h3>
           </div>
